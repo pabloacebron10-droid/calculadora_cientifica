@@ -49,6 +49,7 @@ public class calculadora2 extends JFrame {
         configurarPantalla(operacion, 21, false);
         configurarPantalla(resultado, 27, true);
 
+        // Pantalla de operación
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 5;
@@ -56,13 +57,15 @@ public class calculadora2 extends JFrame {
         gbc.weighty = 0.10;
         add(operacion, gbc);
 
+        // Pantalla de resultado
+        gbc.gridx = 0;
         gbc.gridy = 1;
+        gbc.gridwidth = 5;
+        gbc.weightx = 1;
         gbc.weighty = 0.10;
         add(resultado, gbc);
 
-        JPanel modo = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
-        modo.setOpaque(false);
-
+        // Botones Grados / Radianes
         ButtonGroup grupo = new ButtonGroup();
         grupo.add(grados);
         grupo.add(radianes);
@@ -72,13 +75,19 @@ public class calculadora2 extends JFrame {
         grados.setForeground(TEXTO);
         radianes.setForeground(TEXTO);
 
-        modo.add(grados);
-        modo.add(radianes);
-
-        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        gbc.weightx = 1;
         gbc.weighty = 0.07;
-        add(modo, gbc);
 
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        add(grados, gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        add(radianes, gbc);
+
+        // Botones
         crearBoton(gbc, "7", 0, 3, 1);
         crearBoton(gbc, "8", 1, 3, 1);
         crearBoton(gbc, "9", 2, 3, 1);
@@ -115,10 +124,13 @@ public class calculadora2 extends JFrame {
         pantalla.setEditable(false);
         pantalla.setBackground(PANTALLA);
         pantalla.setForeground(esResultado ? VERDE : TEXTO);
-        pantalla.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(BORDE, 1),
-                BorderFactory.createEmptyBorder(8, 10, 8, 10)
-        ));
+
+        pantalla.setBorder(
+                BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(BORDE, 1),
+                        BorderFactory.createEmptyBorder(8, 10, 8, 10)
+                )
+        );
     }
 
     private void crearBoton(GridBagConstraints gbc, String texto, int columna, int fila, int ancho) {
@@ -133,12 +145,15 @@ public class calculadora2 extends JFrame {
         if (texto.equals("=")) {
             boton.setBackground(VERDE);
             boton.setForeground(Color.WHITE);
+
         } else if (texto.equals("C") || texto.equals("CE") || texto.equals("⌫")) {
             boton.setBackground(ROJO);
             boton.setForeground(Color.WHITE);
+
         } else if (texto.equals("+") || texto.equals("-") || texto.equals("*") || texto.equals("/")) {
             boton.setBackground(AZUL);
             boton.setForeground(Color.WHITE);
+
         } else if (texto.equals("sin") || texto.equals("cos") || texto.equals("tan") || texto.equals("π")) {
             boton.setBackground(MORADO);
             boton.setForeground(Color.WHITE);
