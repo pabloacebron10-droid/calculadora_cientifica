@@ -5,7 +5,6 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.function.Function;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.Locale;
@@ -40,9 +39,8 @@ public class calculadora2 extends JFrame {
     }
 
     private void crearInterfaz() {
-        JPanel panel = new JPanel(new GridBagLayout());
-        panel.setBorder(new EmptyBorder(16, 16, 16, 16));
-        panel.setBackground(FONDO);
+        setLayout(new GridBagLayout());
+        getContentPane().setBackground(FONDO);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
@@ -56,11 +54,11 @@ public class calculadora2 extends JFrame {
         gbc.gridwidth = 5;
         gbc.weightx = 1;
         gbc.weighty = 0.10;
-        panel.add(operacion, gbc);
+        add(operacion, gbc);
 
         gbc.gridy = 1;
         gbc.weighty = 0.10;
-        panel.add(resultado, gbc);
+        add(resultado, gbc);
 
         JPanel modo = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
         modo.setOpaque(false);
@@ -79,97 +77,69 @@ public class calculadora2 extends JFrame {
 
         gbc.gridy = 2;
         gbc.weighty = 0.07;
-        panel.add(modo, gbc);
+        add(modo, gbc);
 
-        crearBoton(panel, gbc, "7", 0, 3, 1);
-        crearBoton(panel, gbc, "8", 1, 3, 1);
-        crearBoton(panel, gbc, "9", 2, 3, 1);
-        crearBoton(panel, gbc, "/", 3, 3, 1);
-        crearBoton(panel, gbc, "C", 4, 3, 1);
+        crearBoton(gbc, "7", 0, 3, 1);
+        crearBoton(gbc, "8", 1, 3, 1);
+        crearBoton(gbc, "9", 2, 3, 1);
+        crearBoton(gbc, "/", 3, 3, 1);
+        crearBoton(gbc, "C", 4, 3, 1);
 
-        crearBoton(panel, gbc, "4", 0, 4, 1);
-        crearBoton(panel, gbc, "5", 1, 4, 1);
-        crearBoton(panel, gbc, "6", 2, 4, 1);
-        crearBoton(panel, gbc, "*", 3, 4, 1);
-        crearBoton(panel, gbc, "⌫", 4, 4, 1);
+        crearBoton(gbc, "4", 0, 4, 1);
+        crearBoton(gbc, "5", 1, 4, 1);
+        crearBoton(gbc, "6", 2, 4, 1);
+        crearBoton(gbc, "*", 3, 4, 1);
+        crearBoton(gbc, "⌫", 4, 4, 1);
 
-        crearBoton(panel, gbc, "1", 0, 5, 1);
-        crearBoton(panel, gbc, "2", 1, 5, 1);
-        crearBoton(panel, gbc, "3", 2, 5, 1);
-        crearBoton(panel, gbc, "-", 3, 5, 1);
-        crearBoton(panel, gbc, "(", 4, 5, 1);
+        crearBoton(gbc, "1", 0, 5, 1);
+        crearBoton(gbc, "2", 1, 5, 1);
+        crearBoton(gbc, "3", 2, 5, 1);
+        crearBoton(gbc, "-", 3, 5, 1);
+        crearBoton(gbc, "(", 4, 5, 1);
 
-        crearBoton(panel, gbc, "0", 0, 6, 1);
-        crearBoton(panel, gbc, ".", 1, 6, 1);
-        crearBoton(panel, gbc, "π", 2, 6, 1);
-        crearBoton(panel, gbc, "+", 3, 6, 1);
-        crearBoton(panel, gbc, ")", 4, 6, 1);
+        crearBoton(gbc, "0", 0, 6, 1);
+        crearBoton(gbc, ".", 1, 6, 1);
+        crearBoton(gbc, "π", 2, 6, 1);
+        crearBoton(gbc, "+", 3, 6, 1);
+        crearBoton(gbc, ")", 4, 6, 1);
 
-        crearBoton(panel, gbc, "sin", 0, 7, 1);
-        crearBoton(panel, gbc, "cos", 1, 7, 1);
-        crearBoton(panel, gbc, "tan", 2, 7, 1);
-        crearBoton(panel, gbc, "=", 3, 7, 2);
-
-
-        setContentPane(panel);
+        crearBoton(gbc, "sin", 0, 7, 1);
+        crearBoton(gbc, "cos", 1, 7, 1);
+        crearBoton(gbc, "tan", 2, 7, 1);
+        crearBoton(gbc, "=", 3, 7, 2);
     }
 
-    private void configurarPantalla(
-            JTextField pantalla,
-            int tamaño,
-            boolean esResultado) {
-
-        pantalla.setFont(
-                new Font("Monospaced", Font.BOLD, tamaño));
-
+    private void configurarPantalla(JTextField pantalla, int tamaño, boolean esResultado) {
+        pantalla.setFont(new Font("Monospaced", Font.BOLD, tamaño));
         pantalla.setHorizontalAlignment(SwingConstants.RIGHT);
         pantalla.setEditable(false);
         pantalla.setBackground(PANTALLA);
         pantalla.setForeground(esResultado ? VERDE : TEXTO);
-
-        pantalla.setBorder(
-                BorderFactory.createCompoundBorder(
-                        BorderFactory.createLineBorder(BORDE, 1),
-                        BorderFactory.createEmptyBorder(8, 10, 8, 10)
-                )
-        );
+        pantalla.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(BORDE, 1),
+                BorderFactory.createEmptyBorder(8, 10, 8, 10)
+        ));
     }
 
-    private void crearBoton(
-            JPanel panel,
-            GridBagConstraints gbc,
-            String texto,
-            int columna,
-            int fila,
-            int ancho) {
-
+    private void crearBoton(GridBagConstraints gbc, String texto, int columna, int fila, int ancho) {
         JButton boton = new JButton(texto);
 
         boton.setFont(new Font("SansSerif", Font.BOLD, 17));
         boton.setFocusPainted(false);
-        boton.setBorder(
-                BorderFactory.createLineBorder(BORDE, 1));
+        boton.setBorder(BorderFactory.createLineBorder(BORDE, 1));
         boton.setBackground(BOTON);
         boton.setForeground(TEXTO);
 
         if (texto.equals("=")) {
             boton.setBackground(VERDE);
             boton.setForeground(Color.WHITE);
-        } else if (texto.equals("C")
-                || texto.equals("CE")
-                || texto.equals("⌫")) {
+        } else if (texto.equals("C") || texto.equals("CE") || texto.equals("⌫")) {
             boton.setBackground(ROJO);
             boton.setForeground(Color.WHITE);
-        } else if (texto.equals("+")
-                || texto.equals("-")
-                || texto.equals("*")
-                || texto.equals("/")) {
+        } else if (texto.equals("+") || texto.equals("-") || texto.equals("*") || texto.equals("/")) {
             boton.setBackground(AZUL);
             boton.setForeground(Color.WHITE);
-        } else if (texto.equals("sin")
-                || texto.equals("cos")
-                || texto.equals("tan")
-                || texto.equals("π")) {
+        } else if (texto.equals("sin") || texto.equals("cos") || texto.equals("tan") || texto.equals("π")) {
             boton.setBackground(MORADO);
             boton.setForeground(Color.WHITE);
         }
@@ -182,7 +152,7 @@ public class calculadora2 extends JFrame {
         gbc.weightx = ancho;
         gbc.weighty = 1;
 
-        panel.add(boton, gbc);
+        add(boton, gbc);
     }
 
     private void procesarBoton(String texto) {
@@ -201,8 +171,7 @@ public class calculadora2 extends JFrame {
                 String actual = operacion.getText();
 
                 if (!actual.isEmpty()) {
-                    operacion.setText(
-                            actual.substring(0, actual.length() - 1));
+                    operacion.setText(actual.substring(0, actual.length() - 1));
                 }
                 break;
 
